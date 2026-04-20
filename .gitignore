@@ -1,0 +1,14 @@
+#python
+venv/
+pycache/
+*.pyc
+*.pyo
+*.pyo
+db.sqlite3
+media/
+
+#environment
+.env
+
+#mac
+.DS_Store
