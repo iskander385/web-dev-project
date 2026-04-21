@@ -1,0 +1,31 @@
+<div class="page-container">
+
+  <nav class="navbar">
+    <h1 class="logo">Supernatural Watchlogger</h1>
+    <div class="nav-links">
+      @if (isLoggedIn) {
+        <a routerLink="/profile" class="nav-link">My Profile</a>
+        <button class="btn-logout" (click)="onLogout()">Logout</button>
+      } @else {
+        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/register" class="nav-link btn-register">Register</a>
+      }
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h2>Watch Every Hunt</h2>
+    <p>Log your watched episodes, leave reviews, and follow along with Sam and Dean's journey across all 15 seasons.</p>
+  </div>
+
+  <div class="seasons-grid">
+    @for (season of seasons; track season.number) {
+      <a [routerLink]="['/seasons', season.number, 'episodes']" class="season-card">
+        <div class="season-number">Season {{ season.number }}</div>
+        <div class="season-info">{{ season.episodeCount }} Episodes</div>
+        <div class="season-arrow">→</div>
+      </a>
+    }
+  </div>
+
+</div>

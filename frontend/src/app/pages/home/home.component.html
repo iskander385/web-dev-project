@@ -1,0 +1,110 @@
+<div class="home-container">
+
+  <nav class="navbar">
+    <h1 class="logo">Supernatural Watchlogger</h1>
+    <div class="nav-links">
+      @if (isLoggedIn) {
+        <a routerLink="/profile" class="nav-link">My Profile</a>
+        <button class="btn-logout" (click)="onLogout()">Logout</button>
+      } @else {
+        <a routerLink="/login" class="nav-link">Login</a>
+        <a routerLink="/register" class="nav-link btn-register">Register</a>
+      }
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">15 Seasons • 327 Episodes</div>
+      <h1>Saving people,<br>hunting things.</h1>
+      <h1>The family business.</h1>
+      <p class="hero-description">
+        Track your journey through the longest-running American live-action
+        fantasy TV series. Log every episode you've watched, leave reviews,
+        explore the cast, and follow fellow fans across all 15 seasons of
+        Sam and Dean Winchester's supernatural adventure.
+      </p>
+      <button class="btn-hero" (click)="goToSeasons()">
+        Start Tracking →
+      </button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <h2>About the Show</h2>
+    <p>
+      Supernatural is an American dark fantasy television series that aired
+      on The WB and later The CW from September 13, 2005 to November 19, 2020.
+      Created by Eric Kripke, the show follows brothers Sam and Dean Winchester
+      as they travel across America in a 1967 Chevrolet Impala hunting demons,
+      ghosts, monsters, and other supernatural beings.
+    </p>
+    <p>
+      Over its 15 seasons, the show expanded its mythology to include angels,
+      demons, gods from multiple pantheons, and even God himself. What began
+      as a monster-of-the-week horror series evolved into an epic story about
+      free will, family, sacrifice, and the ultimate battle between good and evil.
+    </p>
+  </div>
+
+  <div class="stats-section">
+    <div class="stat-card">
+      <div class="stat-number">15</div>
+      <div class="stat-label">Seasons</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">327</div>
+      <div class="stat-label">Episodes</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2005</div>
+      <div class="stat-label">Year Started</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2020</div>
+      <div class="stat-label">Year Ended</div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <h2>What You Can Do</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Track Episodes</h3>
+        <p>Mark episodes as watched and keep track of your progress through all 15 seasons.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Leave Reviews</h3>
+        <p>Rate and review your favourite episodes and share your thoughts with other fans.</p>
+      </div>
+      <div class="feature-card">
+        <h3>User Profiles</h3>
+        <p>Build your profile, track your stats, and see what other fans are watching.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Cast & Summaries</h3>
+        <p>Browse the full cast list and read episode summaries for every episode.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>Ready to start your hunt?</h2>
+    @if (!isLoggedIn) {
+      <p>Create a free account to start tracking your watches and leaving reviews.</p>
+      <div class="cta-buttons">
+        <a routerLink="/register" class="btn-primary">Create Account</a>
+        <a routerLink="/login" class="btn-secondary">Sign In</a>
+      </div>
+    } @else {
+      <p>Welcome back, {{ username }}. Continue your journey.</p>
+      <button class="btn-primary" (click)="goToSeasons()">Browse Seasons</button>
+    }
+  </div>
+
+  <footer class="footer">
+    <p>Supernatural Watchlogger - Fan made website to watchlog Supernatural</p>
+    <p class="footer-sub">Supernatural - 2005-2020 The CW Network</p>
+  </footer>
+
+</div>

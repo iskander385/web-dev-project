@@ -1,0 +1,257 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.page-container {
+  min-height: 100vh;
+  background-color: #0d0d0d;
+  color: #ffffff;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.logo { color: #c8a951; font-size: 1.4rem; }
+
+.nav-links { display: flex; align-items: center; gap: 1rem; }
+
+.nav-link { color: #c8a951; text-decoration: none; }
+
+.btn-back {
+  background: transparent;
+  border: 1px solid #c8a951;
+  color: #c8a951;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-back:hover { background: #c8a951; color: #000; }
+
+.episode-header {
+  padding: 2.5rem 2rem;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.episode-meta {
+  color: #c8a951;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.episode-header h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.episode-details {
+  display: flex;
+  gap: 1.5rem;
+  color: #aaaaaa;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-watched {
+  background: #c8a951;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.btn-watched:hover { background: #d4b86a; }
+
+.watched-badge {
+  display: inline-block;
+  background: #1a3d1a;
+  color: #4caf50;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.success-message {
+  background: #1a3d1a;
+  color: #4caf50;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  background: #3d1515;
+  color: #ff6b6b;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-bottom: 1px solid #222;
+}
+
+.section h3 {
+  color: #c8a951;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.summary {
+  color: #cccccc;
+  line-height: 1.7;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.cast-card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.cast-name { font-weight: bold; margin-bottom: 0.3rem; }
+.cast-character { color: #aaaaaa; font-size: 0.85rem; }
+.cast-role {
+  color: #c8a951;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  text-transform: capitalize;
+}
+
+.review-form {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.review-form h4 {
+  color: #c8a951;
+  margin-bottom: 1rem;
+}
+
+.form-group { margin-bottom: 1rem; }
+
+label {
+  display: block;
+  color: #aaaaaa;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.form-input:focus { outline: none; border-color: #c8a951; }
+
+.btn-primary {
+  background: #c8a951;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:disabled { background: #666; cursor: not-allowed; }
+
+.no-reviews { color: #aaaaaa; font-style: italic; }
+
+.review-card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.review-username {
+  color: #c8a951;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.review-username:hover { text-decoration: underline; }
+
+.review-rating { color: #c8a951; font-size: 1rem; }
+
+.review-body {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.review-date {
+  color: #666;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.review-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-edit {
+  background: transparent;
+  border: 1px solid #c8a951;
+  color: #c8a951;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-delete:hover { background: #ff6b6b; color: #000; }
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: #aaaaaa;
+}

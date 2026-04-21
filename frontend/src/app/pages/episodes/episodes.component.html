@@ -1,0 +1,43 @@
+<div class="page-container">
+
+  <nav class="navbar">
+    <h1 class="logo">Supernatural Watchlogger</h1>
+    <button class="btn-back" (click)="goBack()">← All Seasons</button>
+  </nav>
+
+  <div class="page-header">
+    <h2>Season {{ seasonNumber }}</h2>
+    <p>{{ episodes.length }} Episodes</p>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (isLoading && episodes.length === 0) {
+    <div class="loading">Loading episodes...</div>
+  }
+
+  <div class="episodes-list">
+    @for (episode of episodes; track episode.id) {
+      <a [routerLink]="['/episodes', episode.id]" class="episode-card">
+        <div class="episode-number">
+          S{{ episode.season_number }}E{{ episode.episode_number }}
+        </div>
+        <div class="episode-info">
+          <h3>{{ episode.title }}</h3>
+          <p class="episode-meta">
+            @if (episode.air_date) {
+              <span>{{ episode.air_date }}</span>
+            }
+            @if (episode.imdb_rating) {
+              <span class="rating">Rating: {{ episode.imdb_rating }}</span>
+            }
+          </p>
+        </div>
+        <div class="episode-arrow">→</div>
+      </a>
+    }
+  </div>
+
+</div>

@@ -1,0 +1,175 @@
+<div class="page-container">
+
+  <nav class="navbar">
+    <h1 class="logo">Supernatural Watchlogger</h1>
+    <div class="nav-links">
+      <button class="btn-back" (click)="goBack()">← Back to Season</button>
+      @if (isLoggedIn) {
+        <a routerLink="/profile" class="nav-link">My Profile</a>
+      } @else {
+        <a routerLink="/login" class="nav-link">Login</a>
+      }
+    </div>
+  </nav>
+
+  @if (isLoading && !episode) {
+    <div class="loading">Loading episode...</div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (episode) {
+    <div class="episode-header">
+      <div class="episode-meta">
+        S{{ episode.season_number | number:'2.0-0' }}E{{ episode.episode_number | number:'2.0-0' }}
+      </div>
+      <h2>{{ episode.title }}</h2>
+      <div class="episode-details">
+        @if (episode.air_date) {
+          <span>Air date: {{ episode.air_date }}</span>
+        }
+        @if (episode.runtime) {
+          <span>Runtime: {{ episode.runtime }} min</span>
+        }
+        @if (episode.imdb_rating) {
+          <span>Rating: {{ episode.imdb_rating }} / 10</span>
+        }
+      </div>
+
+      @if (isLoggedIn) {
+        @if (!isWatched) {
+          <button class="btn-watched" (click)="onMarkWatched()">
+            ✓ Mark as Watched
+          </button>
+        } @else {
+          <div class="watched-badge">✓ Watched</div>
+        }
+      }
+
+      @if (successMessage) {
+        <div class="success-message">{{ successMessage }}</div>
+      }
+    </div>
+
+
+    <div class="section">
+      <h3>Summary</h3>
+      <p class="summary">{{ episode.summary }}</p>
+    </div>
+
+    @if (episode.cast && episode.cast.length > 0) {
+      <div class="section">
+        <h3>Cast</h3>
+        <div class="cast-grid">
+          @for (member of episode.cast; track member.id) {
+            <div class="cast-card">
+              <div class="cast-name">{{ member.name }}</div>
+              <div class="cast-character">as {{ member.character_name }}</div>
+              <div class="cast-role">{{ member.role_type }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <div class="section">
+      <h3>Reviews</h3>
+
+      @if (isLoggedIn) {
+        <div class="review-form">
+          <h4>Leave a Review</h4>
+
+          @if (reviewError) {
+            <div class="error-message">{{ reviewError }}</div>
+          }
+          @if (reviewSuccess) {
+            <div class="success-message">{{ reviewSuccess }}</div>
+          }
+
+
+          <div class="form-group">
+            <label>Rating</label>
+            <select [(ngModel)]="reviewRating" class="form-input">
+              <option [value]="5">★★★★★ (5)</option>
+              <option [value]="4">★★★★☆ (4)</option>
+              <option [value]="3">★★★☆☆ (3)</option>
+              <option [value]="2">★★☆☆☆ (2)</option>
+              <option [value]="1">★☆☆☆☆ (1)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea
+              [(ngModel)]="reviewBody"
+              placeholder="Write your review here..."
+              class="form-input"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <button
+            class="btn-primary"
+            (click)="onSubmitReview()"
+            [disabled]="submittingReview"
+          >
+            {{ submittingReview ? 'Submitting...' : 'Submit Review' }}
+          </button>
+        </div>
+      }
+
+
+      @for (review of reviews; track review.id) {
+        <div class="review-card">
+
+          @if (editingReviewId !== review.id) {
+            <div class="review-header">
+              <a [routerLink]="['/profile', review.username]" class="review-username">
+                {{ review.username }}
+              </a>
+              <span class="review-rating">{{ getStars(review.rating) }}</span>
+            </div>
+            <p class="review-body">{{ review.body }}</p>
+            <p class="review-date">{{ review.created_at | date }}</p>
+
+            @if (review.username === currentUsername) {
+              <div class="review-actions">
+                <button class="btn-edit" (click)="startEditReview(review)">Edit</button>
+                <button class="btn-delete" (click)="onDeleteReview(review.id)">Delete</button>
+              </div>
+            }
+          }
+
+          @if (editingReviewId === review.id) {
+            <div class="form-group">
+              <label>Rating</label>
+              <select [(ngModel)]="editRating" class="form-input">
+                <option [value]="5">★★★★★ (5)</option>
+                <option [value]="4">★★★★☆ (4)</option>
+                <option [value]="3">★★★☆☆ (3)</option>
+                <option [value]="2">★★☆☆☆ (2)</option>
+                <option [value]="1">★☆☆☆☆ (1)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Review</label>
+              <textarea
+                [(ngModel)]="editBody"
+                class="form-input"
+                rows="4"
+              ></textarea>
+            </div>
+            <div class="review-actions">
+              <button class="btn-primary" (click)="onUpdateReview(review.id)">Save</button>
+              <button class="btn-edit" (click)="cancelEdit()">Cancel</button>
+            </div>
+          }
+
+        </div>
+      }
+    </div>
+  }
+
+</div>

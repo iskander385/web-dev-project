@@ -1,0 +1,92 @@
+<div class="page-container">
+
+  <nav class="navbar">
+    <h1 class="logo">Supernatural Watchlogger</h1>
+    <div class="nav-links">
+      <button class="btn-back" (click)="goToSeasons()">← All Seasons</button>
+    </div>
+  </nav>
+
+  @if (isLoading && !profileData) {
+    <div class="loading">Loading profile...</div>
+  }
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  @if (profileData) {
+    <div class="profile-header">
+      <div class="avatar">{{ profileData.profile.username[0].toUpperCase() }}</div>
+      <div class="profile-info">
+        <h2>{{ profileData.profile.username }}</h2>
+
+        @if (!editingBio) {
+          <p class="bio">{{ profileData.profile.bio || 'No bio yet.' }}</p>
+          @if (isOwnProfile) {
+            <button class="btn-edit-bio" (click)="editingBio = true">Edit Bio</button>
+          }
+        }
+
+        @if (editingBio) {
+          <textarea
+            [(ngModel)]="newBio"
+            class="bio-input"
+            rows="3"
+            placeholder="Write something about yourself..."
+          ></textarea>
+          <div class="bio-actions">
+            <button class="btn-primary" (click)="onUpdateBio()">Save</button>
+            <button class="btn-cancel" (click)="editingBio = false">Cancel</button>
+          </div>
+        }
+
+        <p class="joined">Joined {{ profileData.profile.joined_date | date }}</p>
+      </div>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-number">{{ profileData.stats.total_watched }}</div>
+        <div class="stat-label">Episodes Watched</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">{{ profileData.stats.total_reviews }}</div>
+        <div class="stat-label">Reviews Written</div>
+      </div>
+    </div>
+
+    @if (getSeasonNumbers().length > 0) {
+      <div class="section">
+        <h3>Progress by Season</h3>
+        @for (season of getSeasonNumbers(); track season) {
+          <div class="season-progress">
+            <span class="season-label">Season {{ season }}</span>
+            <span class="season-count">
+              {{ profileData.stats.watched_by_season[season] }} episodes watched
+            </span>
+          </div>
+        }
+      </div>
+    }
+
+    @if (profileData.recent_reviews.length > 0) {
+      <div class="section">
+        <h3>Recent Reviews</h3>
+        @for (review of profileData.recent_reviews; track review.id) {
+          <div class="review-card">
+            <div class="review-header">
+              <a [routerLink]="['/episodes', review.episode]" class="review-episode">
+                S{{ review.season_number | number:'2.0-0' }}E{{ review.episode_number | number:'2.0-0' }} — {{ review.episode_title }}
+              </a>
+              <span class="review-rating">{{ '★'.repeat(review.rating) }}{{ '☆'.repeat(5 - review.rating) }}</span>
+            </div>
+            <p class="review-body">{{ review.body }}</p>
+            <p class="review-date">{{ review.created_at | date }}</p>
+          </div>
+        }
+      </div>
+    }
+  }
+
+</div>
